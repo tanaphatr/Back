@@ -2,7 +2,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mysql2": "^3.10.2"
+    "mysql2": "^3.10.2",
+    "open": "^10.1.0"
   },
   "scripts": {
     "dev": "nodemon app"
