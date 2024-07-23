@@ -20,8 +20,8 @@ router.post('/post', async (req, res) => {
     const { Num, formdate, Termpay, Duedate, invoice_id } = req.body;
     try {
         const result = await db.query(`
-            INSERT INTO invoices (num, from_date, term_pay, due_date, customer_id)
-            VALUES ('${Num}', '${formdate}', '${Termpay}', '${Duedate}', '${invoice_id}')
+            INSERT INTO invoices (num, from_date, term_pay, due_date)
+            VALUES ('${Num}', '${formdate}', '${Termpay}', '${Duedate}')
         `);
         res.json(result);
     } catch (err) {

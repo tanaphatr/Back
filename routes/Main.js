@@ -32,6 +32,7 @@ router.get('/', (req, res) => {
             <button onclick="navigateTo('/products')">products</button>
             <button onclick="navigateTo('/quatations')">Quatation</button>
             <button onclick="navigateTo('/dataofpro')">data_of_pro</button>
+            <button onclick="navigateTo('/dataofcalprofit')">data_of_calprofit</button>
         </body>
         </html>
     `);
