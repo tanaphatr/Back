@@ -5,7 +5,7 @@ const db = require('../connect.js');
 const generateHtmlPage = require('../utils');
 
 // Route to fetch invoices
-router.get('/', async (req, res) => {
+router.get('/html', async (req, res) => {
     try {
         const [rows, fields] = await db.query('SELECT * FROM invoices');
         res.send(generateHtmlPage('Invoices', fields, rows));
@@ -15,6 +15,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const [rows, fields] = await db.query('SELECT * FROM invoices');
+        res.json(rows);
+    } catch (err) {
+        console.error('Error fetching invoices:', err);
+        res.status(500).json({ error: 'Error fetching invoices' });
+    }
+});
 // Route to post invoices
 router.post('/post', async (req, res) => {
     const { Num, formdate, Termpay, Duedate, invoice_id } = req.body;

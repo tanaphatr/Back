@@ -5,10 +5,20 @@ const db = require('../connect.js');
 const generateHtmlPage = require('../utils');
 
 // Route to fetch customers
-router.get('/', async (req, res) => {
+router.get('/html', async (req, res) => {
     try {
         const [rows, fields] = await db.query('SELECT * FROM Customers');
         res.send(generateHtmlPage('Customers', fields, rows));
+    } catch (err) {
+        console.error('Error fetching customers:', err);
+        res.status(500).json({ error: 'Error fetching customers' });
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const [rows, fields] = await db.query('SELECT * FROM Customers');
+        res.json(rows);
     } catch (err) {
         console.error('Error fetching customers:', err);
         res.status(500).json({ error: 'Error fetching customers' });

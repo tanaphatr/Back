@@ -5,7 +5,7 @@ const db = require('../connect.js');
 const generateHtmlPage = require('../utils');
 
 // Route to fetch products
-router.get('/', async (req, res) => {
+router.get('/html', async (req, res) => {
     try {
         const [rows, fields] = await db.query('SELECT * FROM products');
         res.send(generateHtmlPage('Products', fields, rows));
@@ -15,6 +15,15 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/', async (req, res) => {
+    try {
+        const [rows, fields] = await db.query('SELECT * FROM products');
+        res.json(rows);
+    } catch (err) {
+        console.error('Error fetching products:', err);
+        res.status(500).json({ error: 'Error fetching products' });
+    }
+});
 // Route to post products
 router.post('/post', async (req, res) => {
     const products = req.body;

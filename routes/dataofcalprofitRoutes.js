@@ -5,7 +5,8 @@ const db = require('../connect.js');
 const generateHtmlPage = require('../utils.js');
 
 // Route to fetch data_of_ calprofit
-router.get('/', async (req, res) => {
+// Route สำหรับ HTML
+router.get('/html', async (req, res) => {
     try {
         const [rows, fields] = await db.query('SELECT * FROM data_of_calprofit');
         res.send(generateHtmlPage('Data of calprofit', fields, rows));
@@ -14,6 +15,18 @@ router.get('/', async (req, res) => {
         res.status(500).json({ error: 'Error fetching data_of_calprofit' });
     }
 });
+
+// Route สำหรับ JSON
+router.get('/', async (req, res) => {
+    try {
+        const [rows] = await db.query('SELECT * FROM data_of_calprofit');
+        res.json(rows); // ส่งข้อมูลเป็น JSON
+    } catch (err) {
+        console.error('Error fetching data_of_calprofit:', err);
+        res.status(500).json({ error: 'Error fetching data_of_calprofit' });
+    }
+});
+
 
 router.post('/post', async (req, res) => {
     const { PriceList, ProDiscount_per, Margin_per, CusDiscount_per, Cost, PriceList_Margin, Customer_Price, Profit, Profit_per } = req.body;
